@@ -91,4 +91,13 @@ RSpec.describe NotesController, type: :controller do
 
   end
 
+  describe "notes#destroy action" do
+    it "should destroy a saved note" do
+      note = FactoryGirl.create(:note)
+      delete :destroy, params: { id: note.id }
+      note = Note.find_by_id(note.id)
+      expect(note).to eq nil
+    end
+  end
+
 end
