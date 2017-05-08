@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :notes do
     resource :tags, only: [:create]
   end
+  resources :tags, only: [:destroy]
 end
