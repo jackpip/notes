@@ -92,12 +92,20 @@ RSpec.describe NotesController, type: :controller do
   end
 
   describe "notes#destroy action" do
+    before do
+      @note = FactoryGirl.create(:note)
+      delete :destroy, params: { id: @note.id }
+    end
+
     it "should destroy a saved note" do
-      note = FactoryGirl.create(:note)
-      delete :destroy, params: { id: note.id }
-      note = Note.find_by_id(note.id)
+      note = Note.find_by_id(@note.id)
       expect(note).to eq nil
     end
+
+    it "should return no_content status" do
+      expect(response).to have_http_status(:no_content)
+    end
+
   end
 
 end
